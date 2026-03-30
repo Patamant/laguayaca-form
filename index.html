@@ -254,7 +254,7 @@
 
 <div class="card">
   <h1 class="card-title">Formulario de Solicitud<br>de Material de Apoyo</h1>
-  <p class="card-subtitle">Ingresa el siguiente detalle de información<br>para obtener tu camiseta <strong>La Guayaca</strong>.</p>
+  <p class="card-subtitle">Ingresa el siguiente detalle de información<br>para obtener tu camiseta <strong>Campaña La Guayaca Fianciera</strong>.</p>
 
   <div class="field">
     <label for="apellidos">Apellidos</label>
@@ -292,18 +292,18 @@
   <div class="field">
     <label for="correo">Correo electrónico</label>
     <input type="email" id="correo" placeholder="ejemplo@correo.com">
-    <div class="err" id="err-correo">Ingresa un correo válido con el carácter "@".</div>
+    <div class="err" id="err-correo">Ingresa un correo válido con el carácter @.</div>
   </div>
 
   <div class="field">
     <label for="celular">Celular</label>
     <input type="tel" id="celular" placeholder="0999999999" maxlength="10">
-    <div class="err" id="err-celular">El celular debe tener 10 dígitos numéricos y comenzar con "0".</div>
+    <div class="err" id="err-celular">El celular debe tener 10 dígitos numéricos y comenzar con 0.</div>
   </div>
 
   <div class="aviso">
     <span class="aviso-icon">ℹ️</span>
-    <span>Tu solicitud será verificada para la entrega de tu camiseta.</span>
+    <span>La solicitud será verificada para la entrega de tu camiseta.</span>
   </div>
 
   <div class="btn-row">
@@ -312,7 +312,7 @@
   </div>
 </div>
 
-<div class="footer">© La Guayaca – STG · Banco Pichincha · Visa</div>
+<div class="footer">© La Guayaca Financiera – STG · Banco Pichincha · Visa</div>
 
 <div id="modal-overlay">
   <div class="modal-card">
@@ -322,7 +322,7 @@
     <div class="modal-body">
       <div class="modal-stars">★ ★ ★</div>
       <div class="modal-msg">¡ESTAMOS PRÓXIMOS A UN GRAN EVENTO CON TU TARJETA<br>"LA GUAYACA"!</div>
-      <div class="modal-sub">Tu solicitud fue recibida. Pronto recibirás información sobre la entrega de tu camiseta.</div>
+      <div class="modal-sub">Tu solicitud fue recibida. Pronto te enviaremos información sobre la entrega de tu camiseta Campaña La Guayaca Fianciera.</div>
       <button class="btn-modal-close" onclick="cerrarModal()">¡Entendido!</button>
     </div>
   </div>
@@ -342,9 +342,9 @@ function validarCampos() {
   const area = document.getElementById("area");
   if (!area.value.trim()) { marcarInvalido("area","Por favor ingresa tu área de trabajo."); ok=false; } else marcarValido("area");
   const correo = document.getElementById("correo");
-  if (!correo.value.trim() || !correo.value.includes("@")) { marcarInvalido("correo","Ingresa un correo válido con el carácter "@"."); ok=false; } else marcarValido("correo");
+  if (!correo.value.trim() || !correo.value.includes("@")) { marcarInvalido("correo","Ingresa un correo válido con el carácter @."); ok=false; } else marcarValido("correo");
   const celular = document.getElementById("celular");
-  if (!/^0[0-9]{9}$/.test(celular.value.trim())) { marcarInvalido("celular","El celular debe tener 10 dígitos numéricos y comenzar con "0"."); ok=false; } else marcarValido("celular");
+  if (!/^0[0-9]{9}$/.test(celular.value.trim())) { marcarInvalido("celular","El celular debe tener 10 dígitos numéricos y comenzar con 0."); ok=false; } else marcarValido("celular");
   return ok;
 }
 
@@ -401,11 +401,11 @@ function limpiarFormulario() {
 document.getElementById("apellidos").addEventListener("input", function() { if(this.value.trim()) marcarValido("apellidos"); else marcarInvalido("apellidos","Por favor ingresa tus apellidos."); });
 document.getElementById("nombres").addEventListener("input", function() { if(this.value.trim()) marcarValido("nombres"); else marcarInvalido("nombres","Por favor ingresa tus nombres."); });
 document.getElementById("area").addEventListener("input", function() { if(this.value.trim()) marcarValido("area"); else marcarInvalido("area","Por favor ingresa tu área de trabajo."); });
-document.getElementById("correo").addEventListener("input", function() { if(this.value.trim().includes("@")) marcarValido("correo"); else marcarInvalido("correo","Ingresa un correo válido con el carácter "@"."); });
+document.getElementById("correo").addEventListener("input", function() { if(this.value.trim().includes("@")) marcarValido("correo"); else marcarInvalido("correo","Ingresa un correo válido con el carácter @."); });
 document.getElementById("celular").addEventListener("input", function() {
   this.value = this.value.replace(/[^0-9]/g,"");
   if(/^0[0-9]{9}$/.test(this.value)) marcarValido("celular");
-  else if(this.value.length>0) marcarInvalido("celular","10 dígitos numéricos, debe empezar con "0".");
+  else if(this.value.length>0) marcarInvalido("celular","10 dígitos numéricos, debe empezar con 0.");
   else { this.classList.remove("invalid","valid"); document.getElementById("err-celular").style.display="none"; }
 });
 document.getElementById("talla").addEventListener("change", function() { if(this.value) marcarValido("talla"); else marcarInvalido("talla","Por favor selecciona una talla."); });
