@@ -248,7 +248,7 @@
   // ══════════════════════════════════════════════
   //  CONFIG – reemplaze con su URL de Apps Script
   // ══════════════════════════════════════════════
-  const API_URL = 'https://script.google.com/macros/s/AKfycbwjh-45voymKC8cAvD_Vy_SyH5QPTMBd0xyt_9-xHSevRXsbGZhO3O0nWmXpHThB3r89w/exec';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbz2HVorG8MZ_njmOeMOzBTMRaFHq1Ho-ezncrF65-3RokkPp4fFX54A3VBWcwDpWV_GEg/exec';
 
   let state = { selectedUser: null, registroActivo: null };
   const $ = id => document.getElementById(id);
@@ -369,7 +369,7 @@
   $('btn-sec1').addEventListener('click', async function() {
     setLoading(this, true);
     try {
-      const data = await api('checkEstado', { id_usuario: state.selectedUser.id });
+      const data = await api('checkEstado', { id_usuario: String(state.selectedUser.id) });
 
       if (data.estado === 'ACTIVO') {
         state.registroActivo = data.registro;
@@ -409,9 +409,20 @@
 
   $('btn-sec2').addEventListener('click', async function() {
     setLoading(this, true);
+    // ── Doble verificación: confirmar que usuario sigue sin ACTIVO ──
+    try {
+      const recheck = await api('checkEstado', { id_usuario: state.selectedUser.id });
+      if (recheck.estado === 'ACTIVO') {
+        showAlert('danger', 'Este usuario ya tiene un equipo asignado. Recargue la página.');
+        disableSection('sec2');
+        setLoading(this, false);
+        return;
+      }
+    } catch(e) { /* continuar si falla el recheck */ }
+
     const eqOpt = $('sel-equipo').options[$('sel-equipo').selectedIndex];
     const payload = {
-      id_usuario:    state.selectedUser.id,
+      id_usuario:    String(state.selectedUser.id),
       apellidos:     state.selectedUser.apellidos,
       nombres:       state.selectedUser.nombres,
       id_equipo:     $('sel-equipo').value,
@@ -461,7 +472,7 @@
   $('btn-sec3').addEventListener('click', async function() {
     setLoading(this, true);
     const payload = {
-      id_usuario:         state.selectedUser.id,
+      id_usuario:         String(state.selectedUser.id),
       tarjetas_devueltas: $('inp-tarjetas-dev').value,
       observacion:        $('inp-obs').value,
     };
